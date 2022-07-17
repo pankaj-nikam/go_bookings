@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/pankaj-nikam/hello_web/pkg/config"
-	"github.com/pankaj-nikam/hello_web/pkg/models"
-	"github.com/pankaj-nikam/hello_web/pkg/render"
+	"github.com/pankaj-nikam/go_bookings/pkg/config"
+	"github.com/pankaj-nikam/go_bookings/pkg/models"
+	"github.com/pankaj-nikam/go_bookings/pkg/render"
 )
 
 //Repository is the repository type

@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/pankaj-nikam/hello_web/pkg/config"
-	"github.com/pankaj-nikam/hello_web/pkg/handlers"
-	"github.com/pankaj-nikam/hello_web/pkg/render"
+	"github.com/pankaj-nikam/go_bookings/pkg/config"
+	"github.com/pankaj-nikam/go_bookings/pkg/handlers"
+	"github.com/pankaj-nikam/go_bookings/pkg/render"
 )
 
 const portNumber = ":3000"

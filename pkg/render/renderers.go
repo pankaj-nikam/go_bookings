@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/pankaj-nikam/hello_web/pkg/config"
-	"github.com/pankaj-nikam/hello_web/pkg/models"
+	"github.com/pankaj-nikam/go_bookings/pkg/config"
+	"github.com/pankaj-nikam/go_bookings/pkg/models"
 )
 
 var app *config.AppConfig
