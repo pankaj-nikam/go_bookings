@@ -13,6 +13,11 @@
       crossorigin="anonymous"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs5.min.css"
+    />
+
     <style>
       .my-footer {
         height: 5em;
@@ -100,37 +105,38 @@
             method="get"
             novalidate
           >
-            <div class="row align-items-center">
+            <div class="row">
               <div class="col">
-                <label for="start_date" class="form-label">Starting Date</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  required
-                  id="start_date"
-                  name="start_date"
-                  aria-describedby="startDateHelp"
-                />
-                <div id="startDateHelp" class="form-text">
-                  Enter your starting date.
-                </div>
-              </div>
-              <div class="col">
-                <label for="end_date" class="form-label">Ending Date</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  required
-                  id="end_date"
-                  name="end_date"
-                  aria-describedby="startDateHelp"
-                />
-                <div id="startDateHelp" class="form-text">
-                  Enter your end date.
+                <div class="row" id="reservation_dates">
+                  <div class="col">
+                    <input
+                      id="start_date"
+                      name="end_date"
+                      type="text"
+                      class="form-control"
+                      autocomplete="false"
+                      placeholder="Arrival Date"
+                      required
+                      name="start"
+                    />
+                  </div>
+                  <div class="col">
+                    <input
+                      id="end_date"
+                      name="end_date"
+                      type="text"
+                      class="form-control"
+                      autocomplete="false"
+                      placeholder="Departure"
+                      required
+                      name="end"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">
+            <hr />
+            <button type="submit" class="btn btn-primary">
               Search Availability
             </button>
           </form>
@@ -162,6 +168,8 @@
       integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
+
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
       (() => {
@@ -197,6 +205,11 @@
         } else {
           paragraph.classList.add("red-text");
         }
+      });
+
+      const elem = document.getElementById("reservation_dates");
+      const rangePicker = new DateRangePicker(elem, {
+        format: "dd-M-yyyy",
       });
     </script>
   </body>
