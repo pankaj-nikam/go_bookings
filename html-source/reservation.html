@@ -26,6 +26,10 @@
       .room-image {
         max-width: 50%;
       }
+
+      .red-text {
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -90,7 +94,12 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
           <h1 class="mt-5">Search for availability</h1>
-          <form action="reservation.html" method="get">
+          <form
+            action="reservation.html"
+            class="needs-validation"
+            method="get"
+            novalidate
+          >
             <div class="row align-items-center">
               <div class="col">
                 <label for="start_date" class="form-label">Starting Date</label>
@@ -127,6 +136,16 @@
           </form>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <p id="my_paragraph">This is some text</p>
+          <p>
+            <button class="btn btn-outline btn-secondary" id="color-button">
+              Click Name
+            </button>
+          </p>
+        </div>
+      </div>
     </div>
     <div class="row my-footer">
       <div class="col">Left</div>
@@ -143,5 +162,42 @@
       integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
       crossorigin="anonymous"
     ></script>
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (() => {
+        "use strict";
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll(".needs-validation");
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach((form) => {
+          form.addEventListener(
+            "submit",
+            (event) => {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      })();
+      console.log("I am printing from Javascript");
+
+      let color_button = document.getElementById("color-button");
+
+      color_button.addEventListener("click", function () {
+        let paragraph = document.getElementById("my_paragraph");
+        if (paragraph.classList.contains("red-text")) {
+          paragraph.classList.remove("red-text");
+        } else {
+          paragraph.classList.add("red-text");
+        }
+      });
+    </script>
   </body>
 </html>
