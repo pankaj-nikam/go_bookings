@@ -24,24 +24,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <style>
-      .my-footer {
-        height: 5em;
-        padding: 1em;
-        background-color: #163b65;
-        margin-top: 1.5em;
-        color: #fff;
-        font-size: 80%;
-      }
-
-      .room-image {
-        max-width: 50%;
-      }
-
-      .red-text {
-        color: red;
-      }
-    </style>
+    <link rel="stylesheet" href="./static/css/styles.css" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -181,7 +164,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+      let attention = Prompt();
+
       // Example starter JavaScript for disabling form submissions if there are invalid fields
       (() => {
         "use strict";
@@ -205,13 +191,55 @@
           );
         });
       })();
-      console.log("I am printing from Javascript");
 
       let color_button = document.getElementById("color-button");
 
       color_button.addEventListener("click", function () {
-        alertSuccess("Donee!");
+        let html = `
+          <form style="width:95%;" id="check-availability-form" action = "" method="post" no-validate class="needs-validation">
+            <div class="row">
+              <div class="col">
+                <div class="row" id="reservation-dates-modal">
+                  <div class="col">
+                    <input
+                      id="start"
+                      name="start"
+                      type="text"
+                      class="form-control"
+                      autocomplete="false"
+                      placeholder="Arrival"
+                      required
+                      disabled
+                    />
+                  </div>
+                  <div class="col">
+                    <input
+                      id="end"
+                      name="end"
+                      type="text"
+                      class="form-control"
+                      autocomplete="false"
+                      placeholder="Departure"
+                      required
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        `;
+        attention.custom({ msg: html, title: "Choose your dates" });
       });
+
+      function notifyModal(title, text, icon, configuration) {
+        Swal.fire({
+          title: title,
+          html: text,
+          icon: icon,
+          confirmButtonText: configuration,
+        });
+      }
 
       const elem = document.getElementById("reservation_dates");
       const rangePicker = new DateRangePicker(elem, {
@@ -235,6 +263,89 @@
 
       function alertWarning(msg) {
         notify(msg, "warning");
+      }
+
+      function Prompt() {
+        let toast = function (c) {
+          const { msg = "", icon = "success", position = "top-end" } = c;
+          const Toast = Swal.mixin({
+            title: msg,
+            icon: icon,
+            toast: true,
+            position: position,
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({});
+        };
+
+        let success = function (c) {
+          const { title = "Success", msg = "", footer = "" } = c;
+          Swal.fire({
+            icon: "success",
+            title: title,
+            text: msg,
+            footer: footer,
+          });
+        };
+
+        let error = function (c) {
+          const { title = "Error", msg = "", footer = "" } = c;
+          Swal.fire({
+            icon: "error",
+            title: title,
+            text: msg,
+            footer: footer,
+          });
+        };
+
+        let custom = async function (c) {
+          const { msg = "", title = "" } = c;
+
+          const { value: formValues } = await Swal.fire({
+            title: title,
+            html: msg,
+            backdrop: false,
+            focusConfirm: false,
+            showCancelButton: true,
+            willOpen: () => {
+              const elem = document.getElementById("reservation-dates-modal");
+              const rp = new DateRangePicker(elem, {
+                format: "dd-M-yyyy",
+                showOnFocus: true,
+              });
+            },
+            didOpen: () => {
+              document.getElementById("start").removeAttribute("disabled");
+              document.getElementById("end").removeAttribute("disabled");
+              let elem = document.getElementsByClassName("swal2-actions")[0];
+              elem.style.zIndex = "0";
+            },
+            preConfirm: () => {
+              return [
+                document.getElementById("start").value,
+                document.getElementById("end").value,
+              ];
+            },
+          });
+
+          if (formValues) {
+            Swal.fire(JSON.stringify(formValues));
+          }
+        };
+
+        return {
+          toast: toast,
+          success: success,
+          error: error,
+          custom: custom,
+        };
       }
     </script>
   </body>
