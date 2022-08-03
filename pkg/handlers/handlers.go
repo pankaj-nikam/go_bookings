@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/pankaj-nikam/go_bookings/pkg/config"
@@ -65,7 +66,9 @@ func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
 
 // PostAvailability renders the make a reservation page and displays form.
 func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Posted to search availability"))
+	start := r.Form.Get("start_date")
+	end := r.Form.Get("end_date")
+	w.Write([]byte(fmt.Sprintf("Start is %s and end is %s", start, end)))
 }
 
 // Reservation renders the contact.
