@@ -3,11 +3,8 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <img
-        src="/static/images/generals-quarters.png"
-        alt="Generals Quarters Image"
-        class="room-image img-thumbnail mx-auto d-block"
-      />
+      <img src="/static/images/generals-quarters.png" alt="Generals Quarters Image"
+        class="room-image img-thumbnail mx-auto d-block" />
     </div>
   </div>
   <div class="row">
@@ -33,7 +30,7 @@
     <div class="col text-center">
       <button id="check-availability" name="check-availability" class="btn btn-success">
         Check Availability
-      </a>
+        </a>
     </div>
   </div>
 </div>
@@ -84,14 +81,43 @@
   </div>
 </form>
 `;
-    attention.custom({ msg: html, title: "Choose your dates", callback: function (result) {
-      console.log("called");
-      fetch('/search-availability-json').then(response => response.json()).then(data => {
-        console.log(data);
-        console.log(data.ok);
-        console.log(data.message);
-      });
-    } });
+    attention.custom({
+      msg: html,
+      title: "Choose your dates",
+      willOpen: () => {
+        const elem = document.getElementById("reservation-dates-modal");
+        const rp = new DateRangePicker(elem, {
+          format: "dd-M-yyyy",
+          showOnFocus: true,
+        });
+      },
+      didOpen: () => {
+        document.getElementById("start").removeAttribute("disabled");
+        document.getElementById("end").removeAttribute("disabled");
+        let elem = document.getElementsByClassName("swal2-actions")[0];
+        elem.style.zIndex = "0";
+      },
+      preConfirm: () => {
+        return [
+          document.getElementById("start").value,
+          document.getElementById("end").value,
+        ];
+      },
+      callback: function (result) {
+        console.log("called");
+        let form = document.getElementById('check-availability-form');
+        let formData = new FormData(form);
+        formData.append("csrf_token", "{{.CSRFToken}}");
+        fetch('/search-availability-json', {
+          method: "post",
+          body: formData,
+        }).then(response => response.json()).then(data => {
+          console.log(data);
+          console.log(data.ok);
+          console.log(data.message);
+        });
+      }
+    });
   });
 </script>
 {{ end }}
