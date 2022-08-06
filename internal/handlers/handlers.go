@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/pankaj-nikam/go_bookings/pkg/config"
-	"github.com/pankaj-nikam/go_bookings/pkg/models"
-	"github.com/pankaj-nikam/go_bookings/pkg/render"
+	"github.com/pankaj-nikam/go_bookings/internal/config"
+	"github.com/pankaj-nikam/go_bookings/internal/models"
+	"github.com/pankaj-nikam/go_bookings/internal/render"
 )
 
 // Repository is the repository type
