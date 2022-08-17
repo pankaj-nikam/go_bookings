@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/pankaj-nikam/go_bookings/internal/config"
+	"github.com/pankaj-nikam/go_bookings/internal/forms"
 	"github.com/pankaj-nikam/go_bookings/internal/models"
 	"github.com/pankaj-nikam/go_bookings/internal/render"
 )
@@ -100,5 +101,12 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 
 // Reservation renders the make a reservation page and displays form.
 func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+// PostReservation handles the posting of reservation form.
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+
 }
