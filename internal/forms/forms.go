@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/asaskevich/govalidator"
 )
 
 type Form struct {
@@ -49,4 +51,13 @@ func (f *Form) MinLength(field string, length int, r *http.Request) bool {
 // Valid returns true if there are no errors, otherwise false.
 func (f *Form) Valid() bool {
 	return len(f.Errors) == 0
+}
+
+// IsEmail returns if the email is valid
+func (f *Form) IsEmail(field string) bool {
+	if !govalidator.IsEmail(f.Get(field)) {
+		f.Errors.Add(field, "Invalid email address")
+		return false
+	}
+	return true
 }
