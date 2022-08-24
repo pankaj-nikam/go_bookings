@@ -160,6 +160,18 @@
           text: msg,
         });
       }
+      
+      {{with .Error}}
+        alertError("{{.}}");
+      {{end}}
+
+      {{with .Flash}}
+        alertSuccess("{{.}}");
+      {{end}}
+
+      {{with .Warning}}
+        alertWarning("{{.}}");
+      {{end}}
 
       function alertSuccess(msg) {
         notify(msg, "success");

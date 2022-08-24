@@ -1,0 +1,11 @@
+{
+    "overrides": [
+      {
+        "files": ["*.tmpl"],
+        "options": {
+          "parser": "go-template"
+        }
+      }
+    ],
+    "goTemplateBracketSpacing": true
+  }
